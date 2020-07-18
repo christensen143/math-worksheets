@@ -1,0 +1,34 @@
+.Worksheet {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.Worksheet table.problem {
+  font-family: Sans-Serif;
+  font-size: 24px;
+  text-align: right;
+  margin: 40px;
+  max-width: 10%;
+}
+
+.Worksheet table .bottom {
+  border-bottom: solid;
+}
+
+.Worksheet table tr td form .form-group .form-control {
+  font-family: Sans-Serif;
+  font-size: 24px;
+  text-align: right;
+}
+
+.buttonContainer {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.buttonContainer .btn {
+  min-width: 15%;
+}
