@@ -1,68 +1,40 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Math Worksheets
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Math Worksheets is a React and Firebase application that creates a math test for students based on a choice of multiples. The project idea came from my wife who is a Math teacher. Basically, she wants a way to administer times tests that automates the grading and storage of results.
 
-### `yarn start`
+## Instructions
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Fork the repo
+2. Run `yarn` or `npm install`
+3. Setup your firebase project
+4. Add a firebase config into /src/utils/firebase.js that looks similar to the following:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
-### `yarn test`
+const firebaseConfig = {
+  apiKey: 'YOUR_KEY_HERE',
+  authDomain: 'YOUR_AUTH_DOMAIN_HERE',
+  databaseURL: 'YOUR_DATABASE_URL_HERE',
+  projectId: 'YOUR_PROJECT_ID_HERE',
+  storageBucket: 'YOUR_STORAGE_BUCKET_HERE',
+  messagingSenderId: 'YOUR_MESSAGING_ID_HERE',
+  appId: 'YOUR_APP_ID_HERE',
+};
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+firebase.initializeApp(firebaseConfig);
 
-### `yarn build`
+export const auth = firebase.auth();
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export const firestore = firebase.firestore();
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+5. Hack away!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The code is licensed under the MIT License. For further information on the MIT license go to <https://opensource.org/licenses/MIT>
