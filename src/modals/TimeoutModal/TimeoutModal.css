@@ -1,0 +1,67 @@
+.TimeoutModal .btn {
+  float: unset;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0 15px;
+}
+
+.TimeoutModal .icon-box i {
+  color: #4bb543;
+  font-size: 70px;
+}
+
+.TimeoutModal .body-text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.TimeoutModal h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: auto;
+}
+
+.TimeoutModal .close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+}
+
+.TimeoutModal {
+  color: #636363;
+  width: 600px;
+}
+.TimeoutModal .modal-content {
+  pediting: 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+}
+.TimeoutModal .modal-header {
+  display: block;
+  text-align: center;
+  border-bottom: none;
+  position: relative;
+}
+.TimeoutModal .required {
+  color: red;
+}
+
+.TimeoutModal .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+}
+.TimeoutModal .modal-footer a {
+  color: #999;
+}
+
+.text-center {
+  width: 100%;
+}

@@ -1,0 +1,67 @@
+.StartTimerModal .btn {
+  float: unset;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0 15px;
+}
+
+.StartTimerModal .icon-box i {
+  color: #4bb543;
+  font-size: 70px;
+}
+
+.StartTimerModal .body-text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.StartTimerModal h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: auto;
+}
+
+.StartTimerModal .close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+}
+
+.StartTimerModal {
+  color: #636363;
+  width: 600px;
+}
+.StartTimerModal .modal-content {
+  pediting: 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+}
+.StartTimerModal .modal-header {
+  display: block;
+  text-align: center;
+  border-bottom: none;
+  position: relative;
+}
+.StartTimerModal .required {
+  color: red;
+}
+
+.StartTimerModal .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+}
+.StartTimerModal .modal-footer a {
+  color: #999;
+}
+
+.text-center {
+  width: 100%;
+}

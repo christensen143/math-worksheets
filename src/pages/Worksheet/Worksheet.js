@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer, useRef } from 'react';
 
+import useSetTimeout from 'use-set-timeout';
+
 import { Alert, Form } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -9,12 +11,18 @@ import LoaderButton from '../../components/LoaderButton/LoaderButton';
 import useProblemSet from '../../custom-hooks/useProblemSet';
 
 import './Worksheet.css';
+import TimeoutModal from '../../modals/TimeoutModal/TimeoutModal';
+import StartTimerModal from '../../modals/StartTimerModal/StartTimerModal';
 
 const initialState = {
   correct: [],
   showSuccess: false,
   showError: false,
   isLoading: false,
+  timeout: false,
+  showTimeoutModal: false,
+  startTimer: false,
+  showStartTimerModal: true,
 };
 
 function reducer(state, action) {
@@ -38,6 +46,22 @@ function reducer(state, action) {
         ...state,
         isLoading: action.isLoading,
       };
+    case 'SET_TIMEOUT':
+      return {
+        ...state,
+        timeout: action.timeout,
+      };
+    case 'SET_SHOW_TIMEOUT_MODAL':
+      return {
+        ...state,
+        showTimeoutModal: action.showTimeoutModal,
+      };
+    case 'SET_SHOW_START_TIMER_MODAL':
+      return {
+        ...state,
+        startTimer: true,
+        showStartTimerModal: false,
+      };
     default:
       throw new Error('Action not found');
   }
@@ -48,11 +72,47 @@ const Worksheet = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { isLoading, showSuccess, showError, correct } = state;
+  const {
+    isLoading,
+    showSuccess,
+    showError,
+    correct,
+    timeout,
+    showTimeoutModal,
+    showStartTimerModal,
+    startTimer,
+  } = state;
 
   const multiplier = useSelector((state) => state.questions.multiplier);
 
   const [problems] = useProblemSet(parseInt(multiplier));
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    timeout &&
+      dispatch({ type: 'SET_SHOW_TIMEOUT_MODAL', showTimeoutModal: true });
+    return () => (isMountedRef.current = false);
+  }, [timeout]);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    if (startTimer) {
+      var timeleft = 70;
+      var downloadTimer = setInterval(function () {
+        document.getElementById('countdown').innerHTML = 'Timer: ' + timeleft;
+        if (timeleft <= 5) {
+          document.getElementById('countdown').className = 'counter hurry';
+        }
+        if (timeleft <= 0) {
+          clearInterval(downloadTimer);
+          dispatch({ type: 'SET_TIMEOUT', timeout: true });
+        }
+        timeleft--;
+      }, 1000);
+    }
+
+    return () => (isMountedRef.current = false);
+  }, [startTimer]);
 
   const handleOnChange = (answer, correctAnswer, question) => {
     if (showSuccess) {
@@ -76,15 +136,21 @@ const Worksheet = () => {
     console.log(correct);
   };
 
-  useEffect(() => {
-    isMountedRef.current = true;
-    console.log(
-      `You have answered ${correct.length} correct out of ${problems.length}`
-    );
-    return () => (isMountedRef.current = false);
-  }, [problems, correct]);
+  function range(start, end) {
+    let myArray = [];
+    for (let i = start; i <= end; i += 1) {
+      myArray.push(i);
+    }
+    return myArray;
+  }
 
   const handleSubmit = () => {
+    const questionNum = range(1, 20);
+    questionNum.map((num) => {
+      if (!correct.includes(num)) {
+        document.getElementById(num).className = 'problem wrong';
+      }
+    });
     if (correct.length >= 16) {
       dispatch({ type: 'SET_SHOW_SUCCESS', showSuccess: true });
     } else {
@@ -96,10 +162,13 @@ const Worksheet = () => {
     <Redirect to="/setup" />
   ) : (
     <>
+      <div className="counter" id="countdown">
+        Timer: 70
+      </div>
       <div className="Worksheet">
         {problems.map((problem) => (
           <React.Fragment key={problem.question}>
-            <table className="problem">
+            <table id={problem.question} className="problem">
               <tbody>
                 <tr>
                   <td></td>
@@ -115,6 +184,7 @@ const Worksheet = () => {
                       <Form.Group>
                         <Form.Control
                           type="tel"
+                          disabled={timeout}
                           onBlur={(e) => {
                             handleOnChange(
                               e.target.value,
@@ -167,6 +237,22 @@ const Worksheet = () => {
           </Alert>
         )}
       </div>
+      <TimeoutModal
+        showModal={showTimeoutModal}
+        hideModal={() =>
+          dispatch({ type: 'SET_SHOW_TIMEOUT_MODAL', showTimeoutModal: false })
+        }
+        numCorrect={correct.length}
+        numProblems={problems.length}
+      />
+      <StartTimerModal
+        showModal={showStartTimerModal}
+        hideModal={() =>
+          dispatch({
+            type: 'SET_SHOW_START_TIMER_MODAL',
+          })
+        }
+      />
     </>
   );
 };

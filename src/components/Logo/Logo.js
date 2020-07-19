@@ -1,9 +1,11 @@
 import React from 'react';
 
+import './Logo.css';
+
 const Logo = () => {
   return (
-    <div>
-      <h1>Logo</h1>
+    <div className="Logo">
+      <h1>Times Tables</h1>
     </div>
   );
 };

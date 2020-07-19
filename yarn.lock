@@ -4881,7 +4881,7 @@ file-loader@4.3.0:
     loader-utils "^1.2.3"
     schema-utils "^2.5.0"
 
-"file-saver@github:eligrey/FileSaver.js#1.3.8":
+file-saver@eligrey/FileSaver.js#1.3.8:
   version "1.3.8"
   resolved "https://codeload.github.com/eligrey/FileSaver.js/tar.gz/e865e37af9f9947ddcced76b549e27dc45c1cb2e"
 
@@ -11206,6 +11206,11 @@ use-memo-one@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.1.tgz#39e6f08fe27e422a7d7b234b5f9056af313bd22c"
   integrity sha512-oFfsyun+bP7RX8X2AskHNTxu+R3QdE/RC5IefMbqptmACAA/gfol1KDD5KRzPsGMa62sWxGZw+Ui43u6x4ddoQ==
+
+use-set-timeout@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/use-set-timeout/-/use-set-timeout-1.0.4.tgz#036e1e2866f56b590cb26555b4d79b6eb0f29907"
+  integrity sha512-A2qQEUPNHjLKLl+C48DE8lW3xY2lpYoUtl+xds5Lna+96yp4M9fiH/Biow3xbE3xhhgp5UmuUNgVfdqdJB1EJQ==
 
 use@^3.1.0:
   version "3.1.1"
