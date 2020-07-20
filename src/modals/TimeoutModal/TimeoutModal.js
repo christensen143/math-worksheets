@@ -6,7 +6,14 @@ import LoaderButton from '../../components/LoaderButton/LoaderButton';
 
 import './TimeoutModal.css';
 
-const TimeoutModal = ({ showModal, hideModal, numCorrect, numProblems }) => {
+const TimeoutModal = ({
+  showModal,
+  hideModal,
+  numCorrect,
+  numProblems,
+  message,
+  icon,
+}) => {
   const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = () => {
@@ -24,9 +31,9 @@ const TimeoutModal = ({ showModal, hideModal, numCorrect, numProblems }) => {
     >
       <Modal.Header closeButton>
         <div className="icon-box">
-          <i className="material-icons">alarm</i>
+          <i className="material-icons">{icon}</i>
         </div>
-        <h4 className="modal-title">Times up!</h4>
+        <h4 className="modal-title">{message}</h4>
       </Modal.Header>
       <Modal.Body>
         <div className="mt-3 body-text">

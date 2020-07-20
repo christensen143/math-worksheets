@@ -1,22 +1,11 @@
-@media all and (min-width: 480px) {
+@media all and (max-width: 480px) {
   .counter {
-    position: fixed;
-    top: 0px;
-    right: 1em;
     font-size: 32px;
     text-align: center;
   }
 
-  .Worksheet table.problem {
-    font-family: Sans-Serif;
-    font-size: 24px;
-    text-align: right;
-    margin: 50px;
-    max-width: 10%;
-  }
-
   .modal-content {
-    width: 65vw;
+    width: 95vw;
   }
 }
 .Worksheet {
@@ -31,10 +20,10 @@
   font-size: 24px;
   text-align: right;
   margin: 50px;
-  max-width: 20%;
+  max-width: 10%;
 }
 
-.Worksheet table.wrong {
+.Worksheet table.wrong tbody tr td .form-group .form-control {
   border: solid red;
 }
 
@@ -43,18 +32,18 @@
 }
 
 .counter {
+  position: fixed;
+  top: 0px;
+  right: 1em;
   font-size: 32px;
   text-align: center;
-}
-
-.hurry {
-  color: red;
 }
 
 .Worksheet table tr td form .form-group .form-control {
   font-family: Sans-Serif;
   font-size: 24px;
   text-align: right;
+  padding: 0;
 }
 
 .buttonContainer {
@@ -67,6 +56,6 @@
   min-width: 15%;
 }
 
-.modal-content {
+/* .modal-content {
   width: 95vw;
-}
+} */

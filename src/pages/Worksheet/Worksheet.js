@@ -1,18 +1,24 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 
-import useSetTimeout from 'use-set-timeout';
-
-import { Alert, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import LoaderButton from '../../components/LoaderButton/LoaderButton';
+import Timer from '../../components/Timer/Timer';
+
+import TimeoutModal from '../../modals/TimeoutModal/TimeoutModal';
+import StartTimerModal from '../../modals/StartTimerModal/StartTimerModal';
 
 import useProblemSet from '../../custom-hooks/useProblemSet';
 
 import './Worksheet.css';
-import TimeoutModal from '../../modals/TimeoutModal/TimeoutModal';
-import StartTimerModal from '../../modals/StartTimerModal/StartTimerModal';
 
 const initialState = {
   correct: [],
@@ -55,11 +61,12 @@ function reducer(state, action) {
       return {
         ...state,
         showTimeoutModal: action.showTimeoutModal,
+        message: action.message,
+        icon: action.icon,
       };
     case 'SET_SHOW_START_TIMER_MODAL':
       return {
         ...state,
-        startTimer: true,
         showStartTimerModal: false,
       };
     default:
@@ -72,6 +79,9 @@ const Worksheet = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const [seconds, setSeconds] = useState(70);
+  const [isActive, setIsActive] = useState(false);
+
   const {
     isLoading,
     showSuccess,
@@ -80,39 +90,56 @@ const Worksheet = () => {
     timeout,
     showTimeoutModal,
     showStartTimerModal,
-    startTimer,
+    message,
+    icon,
   } = state;
 
   const multiplier = useSelector((state) => state.questions.multiplier);
 
   const [problems] = useProblemSet(parseInt(multiplier));
 
-  useEffect(() => {
-    isMountedRef.current = true;
-    timeout &&
-      dispatch({ type: 'SET_SHOW_TIMEOUT_MODAL', showTimeoutModal: true });
-    return () => (isMountedRef.current = false);
-  }, [timeout]);
-
-  useEffect(() => {
-    isMountedRef.current = true;
-    if (startTimer) {
-      var timeleft = 70;
-      var downloadTimer = setInterval(function () {
-        document.getElementById('countdown').innerHTML = 'Timer: ' + timeleft;
-        if (timeleft <= 5) {
-          document.getElementById('countdown').className = 'counter hurry';
-        }
-        if (timeleft <= 0) {
-          clearInterval(downloadTimer);
-          dispatch({ type: 'SET_TIMEOUT', timeout: true });
-        }
-        timeleft--;
-      }, 1000);
+  function range(start, end) {
+    let myArray = [];
+    for (let i = start; i <= end; i += 1) {
+      myArray.push(i);
     }
+    return myArray;
+  }
 
+  const markWrong = useCallback(() => {
+    const questionNum = range(1, 20);
+    questionNum.forEach((num) => {
+      if (!correct.includes(num)) {
+        document.getElementById(num).className = 'problem wrong';
+      }
+    });
+  }, [correct]);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    if (timeout) {
+      dispatch({
+        type: 'SET_SHOW_TIMEOUT_MODAL',
+        showTimeoutModal: true,
+        message: 'Times up!',
+        icon: 'alarm',
+      });
+      markWrong();
+    }
     return () => (isMountedRef.current = false);
-  }, [startTimer]);
+  }, [timeout, markWrong]);
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((seconds) => seconds - 1);
+      }, 1000);
+    } else if (!isActive && seconds === 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
 
   const handleOnChange = (answer, correctAnswer, question) => {
     if (showSuccess) {
@@ -136,26 +163,28 @@ const Worksheet = () => {
     console.log(correct);
   };
 
-  function range(start, end) {
-    let myArray = [];
-    for (let i = start; i <= end; i += 1) {
-      myArray.push(i);
-    }
-    return myArray;
-  }
-
   const handleSubmit = () => {
-    const questionNum = range(1, 20);
-    questionNum.map((num) => {
-      if (!correct.includes(num)) {
-        document.getElementById(num).className = 'problem wrong';
-      }
+    setIsActive(false);
+    markWrong();
+    dispatch({
+      type: 'SET_SHOW_TIMEOUT_MODAL',
+      showTimeoutModal: true,
+      message: 'You are quick!',
+      icon: 'done',
     });
-    if (correct.length >= 16) {
-      dispatch({ type: 'SET_SHOW_SUCCESS', showSuccess: true });
-    } else {
-      dispatch({ type: 'SET_SHOW_ERROR', showError: true });
-    }
+    // if (correct.length >= 16) {
+    //   dispatch({ type: 'SET_SHOW_SUCCESS', showSuccess: true });
+    // } else {
+    //   dispatch({ type: 'SET_SHOW_ERROR', showError: true });
+    // }
+  };
+
+  const handleCloseStartTimerModal = () => {
+    dispatch({
+      type: 'SET_SHOW_START_TIMER_MODAL',
+      showStartTimerModal: false,
+    });
+    setIsActive(true);
   };
 
   return !multiplier ? (
@@ -163,7 +192,12 @@ const Worksheet = () => {
   ) : (
     <>
       <div className="counter" id="countdown">
-        Timer: 70
+        <Timer
+          isActive={isActive}
+          setIsActive={setIsActive}
+          markWrong={markWrong}
+          dispatch={dispatch}
+        />
       </div>
       <div className="Worksheet">
         {problems.map((problem) => (
@@ -211,7 +245,7 @@ const Worksheet = () => {
           onClick={handleSubmit}
         />
       </div>
-      <div>
+      {/* <div>
         {showSuccess && (
           <Alert
             onClose={() =>
@@ -236,7 +270,7 @@ const Worksheet = () => {
             You answered {correct.length} correct out of {problems.length}
           </Alert>
         )}
-      </div>
+      </div> */}
       <TimeoutModal
         showModal={showTimeoutModal}
         hideModal={() =>
@@ -244,14 +278,12 @@ const Worksheet = () => {
         }
         numCorrect={correct.length}
         numProblems={problems.length}
+        message={message}
+        icon={icon}
       />
       <StartTimerModal
         showModal={showStartTimerModal}
-        hideModal={() =>
-          dispatch({
-            type: 'SET_SHOW_START_TIMER_MODAL',
-          })
-        }
+        hideModal={handleCloseStartTimerModal}
       />
     </>
   );
