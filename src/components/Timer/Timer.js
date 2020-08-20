@@ -22,7 +22,7 @@ const Timer = ({ isActive, setIsActive, markWrong, dispatch }) => {
     return () => clearInterval(interval);
   }, [isActive, setIsActive, seconds, markWrong, dispatch]);
 
-  return <div id="timer">Timer: {seconds}</div>;
+  return <div id="timer">Timer: {seconds}s</div>;
 };
 
 export default Timer;

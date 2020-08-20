@@ -1,0 +1,41 @@
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 20px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 400px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 3px;
+  }
+
+  .button-container {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
+  .button-container form {
+    margin: 4px 0 4px 0;
+  }
+
+  .totp-container {
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 1000px;
+  }
+
+  .Login form a {
+    color: #004a8f;
+  }
+
+  .Login form .form-group .form-label {
+    color: #004a8f;
+  }
+}
+img {
+  align-items: center;
+  margin-bottom: 1em;
+  max-width: 220px;
+}

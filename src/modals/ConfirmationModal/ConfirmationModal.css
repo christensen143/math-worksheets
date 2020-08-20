@@ -1,0 +1,69 @@
+body {
+  font-family: 'Varela Round', sans-serif;
+}
+.ConfirmationModal {
+  color: #636363;
+  width: 400px;
+}
+.ConfirmationModal .modal-content {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+.ConfirmationModal .modal-header {
+  all: unset;
+  border-bottom: none;
+  position: relative;
+}
+.ConfirmationModal h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: 15px 0;
+}
+.ConfirmationModal .close {
+  all: unset;
+  position: absolute;
+  top: -5px;
+  right: -2px;
+}
+.ConfirmationModal .modal-body {
+  color: #999;
+}
+.ConfirmationModal .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 10px 15px 25px;
+}
+.ConfirmationModal .modal-footer a {
+  color: #999;
+}
+.ConfirmationModal .icon-box i {
+  color: #f15e5e;
+  font-size: 46px;
+  display: inline-block;
+  margin-top: 13px;
+}
+.ConfirmationModal .btn {
+  float: unset;
+  color: #fff;
+  border-radius: 4px;
+  background: #60c7c1;
+  text-decoration: none;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  border: none;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0 5px;
+  outline: none !important;
+}
+
+.ConfirmationModal p {
+  font-size: 16px;
+  margin: 0 0 30px 0;
+}

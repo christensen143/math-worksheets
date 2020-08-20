@@ -172,11 +172,6 @@ const Worksheet = () => {
       message: 'You are quick!',
       icon: 'done',
     });
-    // if (correct.length >= 16) {
-    //   dispatch({ type: 'SET_SHOW_SUCCESS', showSuccess: true });
-    // } else {
-    //   dispatch({ type: 'SET_SHOW_ERROR', showError: true });
-    // }
   };
 
   const handleCloseStartTimerModal = () => {
@@ -191,7 +186,7 @@ const Worksheet = () => {
     <Redirect to="/setup" />
   ) : (
     <>
-      <div className="counter" id="countdown">
+      <div className="counter">
         <Timer
           isActive={isActive}
           setIsActive={setIsActive}
@@ -215,7 +210,7 @@ const Worksheet = () => {
                 <tr>
                   <td colSpan={2}>
                     <Form>
-                      <Form.Group>
+                      <Form.Group controlId={`question-${problem.question}`}>
                         <Form.Control
                           type="tel"
                           disabled={timeout}

@@ -1,3 +1,7 @@
 .Logo h1 {
   color: #ff6700;
 }
+
+.Logo {
+  width: 100%;
+}
